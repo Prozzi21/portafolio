@@ -1,0 +1,126 @@
+{% extends "admin/base.html" %}
+{% block title %}Proyectos{% endblock %}
+{% block extra_head %}
+<style>
+#editModal form { max-width: 100%; }
+tr td:first-child { font-weight: 500; }
+</style>
+{% endblock %}
+{% block content %}
+<div class="section-header">
+    <h1>📁 Proyectos</h1>
+    <button class="btn btn-primary" onclick="openModal('createModal')">+ Nuevo proyecto</button>
+</div>
+<a href="/admin/dashboard" class="back-link">← Volver al dashboard</a>
+
+{% if projects %}
+<table>
+    <thead>
+        <tr><th>Título</th><th>Tecnología</th><th>Icono</th><th style="width:150px">Acciones</th></tr>
+    </thead>
+    <tbody>
+        {% for p in projects %}
+        <tr>
+            <td>{{ p.title }}</td>
+            <td><span class="tech-badge {{ p.tech.lower() }}">{{ p.tech }}</span></td>
+            <td>{{ p.icon }}</td>
+            <td>
+                <div class="actions">
+                    <button class="btn-small btn-edit" onclick="openEdit({{ p.id }}, '{{ p.title|e }}', '{{ p.tech|e }}', '{{ p.description|e }}', '{{ p.features|join(', ')|e }}', '{{ p.icon|e }}')">Editar</button>
+                    <form method="POST" action="/admin/projects/{{ p.id }}/delete" onsubmit="return confirm('¿Eliminar este proyecto?')">
+                        <button class="btn-small btn-delete">Eliminar</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="empty-state">No hay proyectos aún. ¡Crea el primero!</div>
+{% endif %}
+
+<div class="modal-overlay" id="createModal">
+    <div class="modal">
+        <h2>➕ Nuevo proyecto</h2>
+        <form method="POST" action="/admin/projects/create" class="admin-form">
+            <div class="form-group">
+                <label>Título</label>
+                <input type="text" name="title" required>
+            </div>
+            <div class="form-group">
+                <label>Tecnología</label>
+                <select name="tech">
+                    <option value="Pygame">Pygame</option>
+                    <option value="Tkinter">Tkinter</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Descripción</label>
+                <textarea name="description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Características (separadas por coma)</label>
+                <input type="text" name="features" placeholder="ej: Niveles, Power-ups, Puntuación">
+            </div>
+            <div class="form-group">
+                <label>Icono (emoji)</label>
+                <input type="text" name="icon" placeholder="🎮" maxlength="2">
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-small btn-cancel" onclick="closeModal('createModal')">Cancelar</button>
+                <button type="submit" class="btn-small btn-edit">Crear</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay" id="editModal">
+    <div class="modal">
+        <h2>✏️ Editar proyecto</h2>
+        <form method="POST" class="admin-form" id="editForm">
+            <div class="form-group">
+                <label>Título</label>
+                <input type="text" name="title" id="edit_title" required>
+            </div>
+            <div class="form-group">
+                <label>Tecnología</label>
+                <select name="tech" id="edit_tech">
+                    <option value="Pygame">Pygame</option>
+                    <option value="Tkinter">Tkinter</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Descripción</label>
+                <textarea name="description" id="edit_description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Características (separadas por coma)</label>
+                <input type="text" name="features" id="edit_features">
+            </div>
+            <div class="form-group">
+                <label>Icono (emoji)</label>
+                <input type="text" name="icon" id="edit_icon" maxlength="2">
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-small btn-cancel" onclick="closeModal('editModal')">Cancelar</button>
+                <button type="submit" class="btn-small btn-edit">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function openModal(id) { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+function openEdit(id, title, tech, desc, features, icon) {
+    document.getElementById('editForm').action = '/admin/projects/' + id + '/edit';
+    document.getElementById('edit_title').value = title;
+    document.getElementById('edit_tech').value = tech;
+    document.getElementById('edit_description').value = desc;
+    document.getElementById('edit_features').value = features;
+    document.getElementById('edit_icon').value = icon;
+    openModal('editModal');
+}
+</script>
+{% endblock %}

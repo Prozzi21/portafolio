@@ -1,0 +1,22 @@
+{% extends "admin/base.html" %}
+{% block title %}Hero{% endblock %}
+{% block content %}
+<h1>👤 Editar Hero / Inicio</h1>
+<a href="/admin/dashboard" class="back-link">← Volver al dashboard</a>
+
+<form method="POST" action="/admin/hero" class="admin-form">
+    <div class="form-group">
+        <label for="name">Nombre</label>
+        <input type="text" id="name" name="name" value="{{ hero.name }}" required>
+    </div>
+    <div class="form-group">
+        <label for="subtitle">Subtítulo</label>
+        <input type="text" id="subtitle" name="subtitle" value="{{ hero.subtitle }}">
+    </div>
+    <div class="form-group">
+        <label for="description">Descripción</label>
+        <textarea id="description" name="description" rows="4">{{ hero.description }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+</form>
+{% endblock %}

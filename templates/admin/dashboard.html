@@ -1,0 +1,23 @@
+{% extends "admin/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1>📊 Dashboard</h1>
+<div class="dashboard-cards">
+    <a href="/admin/hero" class="dash-card">
+        <span class="icon">👤</span>
+        <span class="label">Hero / Inicio</span>
+    </a>
+    <a href="/admin/projects" class="dash-card">
+        <span class="icon">📁</span>
+        <span class="label">Proyectos</span>
+    </a>
+    <a href="/admin/skills" class="dash-card">
+        <span class="icon">🎯</span>
+        <span class="label">Habilidades</span>
+    </a>
+    <a href="/admin/contact" class="dash-card">
+        <span class="icon">📬</span>
+        <span class="label">Contacto</span>
+    </a>
+</div>
+{% endblock %}

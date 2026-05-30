@@ -1,0 +1,22 @@
+{% extends "admin/base.html" %}
+{% block title %}Contacto{% endblock %}
+{% block content %}
+<h1>📬 Editar Contacto</h1>
+<a href="/admin/dashboard" class="back-link">← Volver al dashboard</a>
+
+<form method="POST" action="/admin/contact" class="admin-form">
+    <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" value="{{ contact.email }}">
+    </div>
+    <div class="form-group">
+        <label for="github">Usuario de GitHub</label>
+        <input type="text" id="github" name="github" value="{{ contact.github }}" placeholder="tu-usuario">
+    </div>
+    <div class="form-group">
+        <label for="linkedin">Usuario de LinkedIn</label>
+        <input type="text" id="linkedin" name="linkedin" value="{{ contact.linkedin }}" placeholder="tu-usuario">
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+</form>
+{% endblock %}

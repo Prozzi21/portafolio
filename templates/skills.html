@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Habilidades - Mi Portafolio{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <h1 class="section-title">Mis Habilidades</h1>
+    <p class="section-subtitle">Tecnologías y herramientas que domino</p>
+
+    <div class="skills-grid">
+        {% for skill in skills %}
+        <div class="skill-card">
+            <span class="skill-icon">{{ skill.icon }}</span>
+            <h3>{{ skill.name }}</h3>
+            <div class="skill-bar">
+                <div class="skill-bar-fill" style="width: {{ skill.level }}%"></div>
+            </div>
+            <span class="skill-level">{{ skill.level }}%</span>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

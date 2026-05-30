@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Mi Portafolio{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1>Hola, soy <span class="highlight">{{ hero.name }}</span></h1>
+            <p class="hero-subtitle">{{ hero.subtitle }}</p>
+            <p class="hero-description">{{ hero.description }}</p>
+            <div class="hero-actions">
+                <a href="/projects" class="btn btn-primary">Ver Proyectos</a>
+                <a href="/contact" class="btn btn-secondary">Contáctame</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="code-window">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <pre><code><span class="keyword">def</span> <span class="function">crear_portafolio</span>():
+    <span class="keyword">return</span> <span class="string">"Hecho con ❤️ en Python"</span>
+
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    print(crear_portafolio())</code></pre>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

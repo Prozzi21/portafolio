@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+jinja2
+aiosqlite
+python-jose[cryptography]
+bcrypt
+python-dotenv
+libsql-client

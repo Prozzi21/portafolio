@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Proyectos - Mi Portafolio{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <h1 class="section-title">Mis Proyectos</h1>
+    <p class="section-subtitle">Trabajos realizados con Pygame y Tkinter</p>
+
+    <div class="projects-grid">
+        {% for project in projects %}
+        <article class="project-card">
+            <div class="project-icon">{{ project.icon }}</div>
+            <div class="project-body">
+                <div class="project-header">
+                    <h2>{{ project.title }}</h2>
+                    <span class="tech-badge {{ project.tech.lower() }}">{{ project.tech }}</span>
+                </div>
+                <p>{{ project.description }}</p>
+                <ul class="project-features">
+                    {% for feature in project.features %}
+                    <li>{{ feature }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

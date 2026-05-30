@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mi Portafolio{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">Portafolio</a>
+            <ul class="nav-links">
+                <li><a href="/" class="{% if active == 'inicio' %}active{% endif %}">Inicio</a></li>
+                <li><a href="/projects" class="{% if active == 'proyectos' %}active{% endif %}">Proyectos</a></li>
+                <li><a href="/skills" class="{% if active == 'habilidades' %}active{% endif %}">Habilidades</a></li>
+                <li><a href="/contact" class="{% if active == 'contacto' %}active{% endif %}">Contacto</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+                <span class="toggle-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 - Todos los derechos reservados</p>
+        <div class="footer-links">
+            <a href="https://github.com/" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
