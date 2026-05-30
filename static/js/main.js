@@ -51,6 +51,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     });
 
+    // Scroll Spy: Highlight active menu item on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navAnchors = document.querySelectorAll('.nav-link-anchor');
+
+    function highlightMenuItem() {
+        const scrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+        let current = '';
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 120; // Account for fixed header height
+            const sectionHeight = section.offsetHeight;
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        // Fallback for top of page
+        if (scrollPosition < 100) {
+            current = 'inicio';
+        }
+
+        navAnchors.forEach(anchor => {
+            anchor.classList.remove('active');
+            if (anchor.getAttribute('href').endsWith('#' + current)) {
+                anchor.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', highlightMenuItem);
+    highlightMenuItem(); // Trigger once on load to highlight the current section
+
     const skillBars = document.querySelectorAll('.skill-bar-fill');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {

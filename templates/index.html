@@ -3,15 +3,16 @@
 {% block title %}Inicio - Mi Portafolio{% endblock %}
 
 {% block content %}
-<section class="hero">
+<!-- Sección Inicio -->
+<section class="hero" id="inicio">
     <div class="hero-content">
         <div class="hero-text">
             <h1>Hola, soy <span class="highlight">{{ hero.name }}</span></h1>
             <p class="hero-subtitle">{{ hero.subtitle }}</p>
             <p class="hero-description">{{ hero.description }}</p>
             <div class="hero-actions">
-                <a href="/projects" class="btn btn-primary">Ver Proyectos</a>
-                <a href="/contact" class="btn btn-secondary">Contáctame</a>
+                <a href="#proyectos" class="btn btn-primary">Ver Proyectos</a>
+                <a href="#contacto" class="btn btn-secondary">Contáctame</a>
             </div>
         </div>
         <div class="hero-image">
@@ -26,6 +27,91 @@
 
 <span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
     print(crear_portafolio())</code></pre>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sección Proyectos -->
+<section class="page-section" id="proyectos">
+    <h1 class="section-title">Mis Proyectos</h1>
+    <p class="section-subtitle">Trabajos realizados con Pygame y Tkinter</p>
+
+    <div class="projects-grid">
+        {% for project in projects %}
+        <article class="project-card">
+            <div class="project-icon">{{ project.icon }}</div>
+            <div class="project-body">
+                <div class="project-header">
+                    <h2>{{ project.title }}</h2>
+                    <span class="tech-badge {{ project.tech.lower() }}">{{ project.tech }}</span>
+                </div>
+                <p>{{ project.description }}</p>
+                <ul class="project-features">
+                    {% for feature in project.features %}
+                    <li>{{ feature }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Sección Habilidades -->
+<section class="page-section" id="habilidades">
+    <h1 class="section-title">Mis Habilidades</h1>
+    <p class="section-subtitle">Tecnologías y herramientas que domino</p>
+
+    <div class="skills-grid">
+        {% for skill in skills %}
+        <div class="skill-card">
+            <span class="skill-icon">{{ skill.icon }}</span>
+            <h3>{{ skill.name }}</h3>
+            <div class="skill-bar">
+                <div class="skill-bar-fill" style="width: {{ skill.level }}%"></div>
+            </div>
+            <span class="skill-level">{{ skill.level }}%</span>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Sección Contacto -->
+<section class="page-section" id="contacto">
+    <h1 class="section-title">Contacto</h1>
+    <p class="section-subtitle">¿Tienes un proyecto en mente? Hablemos</p>
+
+    <div class="contact-container">
+        <form class="contact-form" id="contactForm">
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" id="name" name="name" required placeholder="Tu nombre">
+            </div>
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email" required placeholder="tu@correo.com">
+            </div>
+            <div class="form-group">
+                <label for="subject">Asunto</label>
+                <input type="text" id="subject" name="subject" required placeholder="Asunto del mensaje">
+            </div>
+            <div class="form-group">
+                <label for="message">Mensaje</label>
+                <textarea id="message" name="message" rows="5" required placeholder="Escribe tu mensaje aquí..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Enviar Mensaje</button>
+        </form>
+
+        <div class="contact-info">
+            <h3>También puedes encontrarme en:</h3>
+            <div class="contact-item">
+                <span class="contact-icon">📧</span>
+                <span>{{ contact.email }}</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">🐙</span>
+                <a href="https://github.com/{{ contact.github }}" target="_blank">github.com/{{ contact.github }}</a>
             </div>
         </div>
     </div>

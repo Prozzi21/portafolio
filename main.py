@@ -22,8 +22,15 @@ app.include_router(admin_router)
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     hero = await get_hero()
+    projects_data = await get_projects()
+    skills_data = await get_skills()
+    contact_data = await get_contact()
     return templates.TemplateResponse(request, "index.html", {
-        "hero": hero, "active": "inicio"
+        "hero": hero,
+        "projects": projects_data,
+        "skills": skills_data,
+        "contact": contact_data,
+        "active": "inicio"
     })
 
 @app.get("/projects", response_class=HTMLResponse)
