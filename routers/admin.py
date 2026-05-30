@@ -21,14 +21,14 @@ async def get_admin_or_redirect(request: Request):
 
 @router.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
-    return templates.TemplateResponse("admin/login.html", {"request": request})
+    return templates.TemplateResponse(request, "admin/login.html")
 
 @router.post("/login")
 async def login(request: Request, username: str = Form(), password: str = Form()):
     user = await get_user(username)
     if not user or not verify_password(password, user["password_hash"]):
-        return templates.TemplateResponse("admin/login.html", {
-            "request": request, "error": "Usuario o contraseña incorrectos"
+        return templates.TemplateResponse(request, "admin/login.html", {
+            "error": "Usuario o contraseña incorrectos"
         })
     token = create_token(username)
     response = RedirectResponse(url="/admin/dashboard", status_code=303)
@@ -46,7 +46,7 @@ async def dashboard(request: Request):
     user = await get_admin_or_redirect(request)
     if not user:
         return RedirectResponse(url="/admin/login", status_code=303)
-    return templates.TemplateResponse("admin/dashboard.html", {"request": request, "admin_user": user})
+    return templates.TemplateResponse(request, "admin/dashboard.html", {"admin_user": user})
 
 @router.get("/hero", response_class=HTMLResponse)
 async def hero_page(request: Request):
@@ -54,7 +54,7 @@ async def hero_page(request: Request):
     if not user:
         return RedirectResponse(url="/admin/login", status_code=303)
     hero = await get_hero()
-    return templates.TemplateResponse("admin/hero.html", {"request": request, "hero": hero, "admin_user": user})
+    return templates.TemplateResponse(request, "admin/hero.html", {"hero": hero, "admin_user": user})
 
 @router.post("/hero")
 async def hero_save(request: Request, name: str = Form(), subtitle: str = Form(), description: str = Form()):
@@ -70,7 +70,7 @@ async def projects_page(request: Request):
     if not user:
         return RedirectResponse(url="/admin/login", status_code=303)
     projects = await get_projects()
-    return templates.TemplateResponse("admin/projects.html", {"request": request, "projects": projects, "admin_user": user})
+    return templates.TemplateResponse(request, "admin/projects.html", {"projects": projects, "admin_user": user})
 
 @router.post("/projects/create")
 async def project_create(
@@ -112,7 +112,7 @@ async def skills_page(request: Request):
     if not user:
         return RedirectResponse(url="/admin/login", status_code=303)
     skills = await get_skills()
-    return templates.TemplateResponse("admin/skills.html", {"request": request, "skills": skills, "admin_user": user})
+    return templates.TemplateResponse(request, "admin/skills.html", {"skills": skills, "admin_user": user})
 
 @router.post("/skills/create")
 async def skill_create(request: Request, name: str = Form(), level: int = Form(), icon: str = Form()):
@@ -144,7 +144,7 @@ async def contact_page(request: Request):
     if not user:
         return RedirectResponse(url="/admin/login", status_code=303)
     contact = await get_contact()
-    return templates.TemplateResponse("admin/contact.html", {"request": request, "contact": contact, "admin_user": user})
+    return templates.TemplateResponse(request, "admin/contact.html", {"contact": contact, "admin_user": user})
 
 @router.post("/contact")
 async def contact_save(request: Request, email: str = Form(), github: str = Form(), linkedin: str = Form()):
