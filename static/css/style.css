@@ -189,7 +189,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: calc(100vh - 80px);
-    padding: 2rem;
+    padding: 6rem 2rem;
 }
 
 .hero-content {
@@ -282,7 +282,7 @@ body {
 .btn-secondary:hover {
     background: var(--gradient-accent);
     color: white;
-    border-color: transparent;
+    border-color: var(--accent);
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(26, 188, 156, 0.2);
 }
@@ -335,7 +335,7 @@ body {
 .page-section {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 3rem 2rem;
+    padding: 6rem 2rem;
 }
 
 .section-title {
